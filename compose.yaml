@@ -1,0 +1,14 @@
+services:
+  Prometheus:
+    image: ${PROMETHEUS_IMAGE_NAME}
+    container_name: ${PROMETHEUS_CONTAINER_NAME}
+    hostname: ${PROMETHEUS_HOSTNAME}
+    restart: unless-stopped
+    environment:
+      TZ: ${SYSTEM_TIME_ZONE}
+      GF_DATE_FORMATS_DEFAULT_TIMEZONE: ${SYSTEM_TIME_ZONE}
+    volumes:
+      - ${APP_CONFIG}:/etc/prometheus 
+      - ${APP_DATA_PATH}:/prometheus
+    ports:
+      - ${PROMETHEUS_EXTERNAL_PORT}:9090
