@@ -12,3 +12,9 @@ services:
       - ${APP_DATA_PATH}:/prometheus
     ports:
       - ${PROMETHEUS_EXTERNAL_PORT}:9090
+    command: 
+      - --config.file=/etc/prometheus/prometheus.yml
+      - --storage.tsdb.path=/prometheus
+      - --storage.tsdb.retention.time=${STORAGE_RETENTION_TIME}
+      - --web.console.libraries=/usr/share/prometheus/console_libraries
+      - --web.console.templates=/usr/share/prometheus/consoles
