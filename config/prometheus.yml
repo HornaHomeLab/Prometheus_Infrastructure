@@ -24,9 +24,9 @@ scrape_configs:
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     static_configs:
-      - targets: ["192.168.0.19:4445"]
+      - targets: ["10.0.10.20:4445"]
   - job_name: "Server-Core"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     static_configs:
-      - targets: ["192.168.0.202:4445"]
+      - targets: ["10.0.10.100:4445"]
