@@ -41,7 +41,7 @@ scrape_configs:
     static_configs:
       - targets: [
           "services.Horna.local:54569", 
-          "Apps.Horna.local:54569", 
+          "apps.Horna.local:54569", 
           "dockerserver.Horna.local:54569", 
           "codespace.Horna.local:54569"
         ]
