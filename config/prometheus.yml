@@ -25,23 +25,26 @@ scrape_configs:
     # scheme defaults to 'http'.
     static_configs:
       - targets: [
-        "Ryzen9.Horna.local:4445",
-        "Server-Core.Horna.local:4445"
+          "Ryzen9.Horna.local:4445",
+          "Server-Core.Horna.local:4445"
         ]
   - job_name: "SpeedTest"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     static_configs:
       - targets: [
-        "Apps.Horna.local:8000"
+          "Apps.Horna.local:8000"
         ]
   - job_name: "Docker_Containers"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
     static_configs:
       - targets: [
-        "services.Horna.local:54569", 
-        "apps.Horna.local:54569", 
-        "dockerserver.Horna.local:54569", 
-        "codespace.Horna.local:54569"
+          "services.Horna.local:54569", 
+          "Apps.Horna.local:54569", 
+          "dockerserver.Horna.local:54569", 
+          "codespace.Horna.local:54569"
         ]
+  - job_name: "Omada"
+    static_configs:
+      - targets: ["Apps.Horna.local:51772"]
