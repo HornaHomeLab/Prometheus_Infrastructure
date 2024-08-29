@@ -20,6 +20,7 @@ rule_files:
 # Here it's Prometheus itself.
 scrape_configs:
   # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
+
   - job_name: "Server_Load"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
@@ -28,6 +29,7 @@ scrape_configs:
           "Ryzen9.Horna.local:4445",
           "Server-Core.Horna.local:4445"
         ]
+
   - job_name: "SpeedTest"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
@@ -35,6 +37,7 @@ scrape_configs:
       - targets: [
           "Apps.Horna.local:8000"
         ]
+  
   - job_name: "Docker_Containers"
     # metrics_path defaults to '/metrics'
     # scheme defaults to 'http'.
@@ -45,6 +48,7 @@ scrape_configs:
           "dockerserver.Horna.local:54569", 
           "codespace.Horna.local:54569"
         ]
+  
   - job_name: "Omada"
     static_configs:
       - targets: ["Apps.Horna.local:51772"]
