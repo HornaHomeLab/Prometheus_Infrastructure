@@ -2,7 +2,7 @@ services:
   Prometheus:
     image: ${PROMETHEUS_IMAGE_NAME}
     build:
-      context: ./
+      context: ./PrometheusServer
       dockerfile: Dockerfile
     container_name: ${PROMETHEUS_CONTAINER_NAME}
     hostname: ${PROMETHEUS_HOSTNAME}
@@ -10,13 +10,46 @@ services:
     environment:
       TZ: ${SYSTEM_TIME_ZONE}
     volumes:
-      - ${APP_CONFIG}:/etc/prometheus 
+      - ./PrometheusServer/config:/etc/prometheus
       - ${APP_DATA_PATH}:/prometheus
     ports:
       - ${PROMETHEUS_EXTERNAL_PORT}:9090
-    command: 
+    command:
       - --config.file=/etc/prometheus/prometheus.yml
+      - --web.external-url=http://${HOST_MACHINE_NAME}:${PROMETHEUS_EXTERNAL_PORT}
+      - --rules.alert.for-outage-tolerance=1m
+      - --rules.alert.for-grace-period=1m
       - --storage.tsdb.path=/prometheus
       - --storage.tsdb.retention.time=${STORAGE_RETENTION_TIME}
       - --web.console.libraries=/usr/share/prometheus/console_libraries
       - --web.console.templates=/usr/share/prometheus/consoles
+    healthcheck:
+      test: wget --spider -q  http://${PROMETHEUS_HOSTNAME}:9090/-/ready
+      start_period: 2s
+      interval: 2s
+      timeout: 5s
+      retries: 10
+
+  AlertManager:
+    image: ${ALERTMANAGER_IMAGE_NAME}
+    build:
+      context: ./AlertManager
+      dockerfile: Dockerfile
+    container_name: ${ALERTMANAGER_CONTAINER_NAME}
+    hostname: ${ALERTMANAGER_HOSTNAME}
+    restart: unless-stopped
+    environment:
+      TZ: ${SYSTEM_TIME_ZONE}
+    volumes:
+      - ./AlertManager/config:/etc/alertmanager
+    ports:
+      - ${ALERTMANAGER_EXTERNAL_PORT}:9093
+    command:
+      - --config.file=/etc/alertmanager/alert_manager.yml
+      - --web.external-url=http://${HOST_MACHINE_NAME}:${ALERTMANAGER_EXTERNAL_PORT}
+    healthcheck:
+      test: wget --spider -q  http://${ALERTMANAGER_HOSTNAME}:9093/-/ready
+      start_period: 2s
+      interval: 2s
+      timeout: 5s
+      retries: 10

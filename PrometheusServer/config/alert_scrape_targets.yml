@@ -1,0 +1,15 @@
+groups:
+- name: AllInstances
+  rules:
+  - alert: Persistent Instance Down
+    # Condition for alerting
+    expr: up{persistent="true"} == 0
+    for: 15s
+    # Annotation - additional informational labels to store more information
+    annotations:
+      title: '{{ $labels.instance }} is down'
+      description: 'Job `{{ $labels.job }}` has down instance: `{{ $labels.instance }}`'
+    # Labels - additional labels to be attached to the alert
+    labels:
+      severity: 'critical'
+      down_time_trigger: '15 seconds'

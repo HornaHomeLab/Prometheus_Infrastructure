@@ -9,11 +9,11 @@ alerting:
   alertmanagers:
     - static_configs:
         - targets:
-          # - alertmanager:9093
+          - AlertManager_Infrastructure:9093
 
 # Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
-  # - "first_rules.yml"
+    - "alert_scrape_targets.yml"
   # - "second_rules.yml"
 
 # A scrape configuration containing exactly one endpoint to scrape:
@@ -37,6 +37,8 @@ scrape_configs:
       - targets: [
           "Apps.Horna.local:8000"
         ]
+        labels:
+          persistent: "true"
   
   - job_name: "Docker_Containers"
     # metrics_path defaults to '/metrics'
@@ -51,4 +53,9 @@ scrape_configs:
   
   - job_name: "Omada"
     static_configs:
-      - targets: ["Apps.Horna.local:51772"]
+      - targets: [
+          "Apps.Horna.local:51772",
+          "codespace.Horna.local:51772"
+        ]
+        labels:
+          persistent: "true"
