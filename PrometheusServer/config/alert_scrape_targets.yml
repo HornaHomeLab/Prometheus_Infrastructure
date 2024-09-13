@@ -1,5 +1,5 @@
 groups:
-- name: ScrapeTargets
+- name: Scrape Targets
   rules:
   - alert: Persistent Instance Down
     # Condition for alerting

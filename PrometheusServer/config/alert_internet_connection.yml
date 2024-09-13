@@ -1,5 +1,5 @@
 groups:
-- name: InternetConnection
+- name: Internet Connection
   rules:
   - alert: Low internet download speed
     # Condition for alerting
@@ -36,7 +36,7 @@ groups:
     # Annotation - additional informational labels to store more information
     annotations:
       title: 'Ping without workload'
-      description: 'Value of {{ $labels.__name__}} is `{{ $value }}` ms'
+      description: 'Value of ping_no_workload_latency is `{{ $value }}` ms'
     # Labels - additional labels to be attached to the alert
     labels:
       severity: 'warning'
@@ -78,7 +78,7 @@ groups:
     # Annotation - additional informational labels to store more information
     annotations:
       title: 'No internet access'
-      description: 'Value of {{ $labels.__name__}} is `{{ $value }}` Mbps'
+      description: 'Value of bandwidth is `{{ $value }}` Mbps'
     # Labels - additional labels to be attached to the alert
     labels:
       severity: 'critical'
@@ -92,7 +92,21 @@ groups:
     # Annotation - additional informational labels to store more information
     annotations:
       title: 'Speed test packet loss'
-      description: 'Value of {{ $labels.__name__}} is {{ $value }} %'
+      description: 'Value of packet_loss is `{{ $value }}` %'
+    # Labels - additional labels to be attached to the alert
+    labels:
+      severity: 'critical'
+      down_time_trigger: '15 seconds'
+      type: 'internet'
+
+  - alert: Router port internet state Offline
+    # Condition for alerting
+    expr: router_port_info{mode="WAN",internetState="Offline"} == 1
+    for: 15s
+    # Annotation - additional informational labels to store more information
+    annotations:
+      title: 'Router port internet state Offline'
+      description: 'Value of internetState change to offline for {{ $labels.portDesc }} %'
     # Labels - additional labels to be attached to the alert
     labels:
       severity: 'critical'
