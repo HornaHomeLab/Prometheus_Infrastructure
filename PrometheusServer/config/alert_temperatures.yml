@@ -1,0 +1,35 @@
+groups:
+- name: Hardware Temperature
+  rules:
+  - alert: High Router Temperature
+    expr: router_temperature > 55
+    for: 30s
+    annotations:
+      title: 'High Router Temperature'
+      description: 'Temperature: `{{ $value }}C`'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '15 seconds'
+      type: 'temperature'
+
+  - alert: Server-Core High CPU temperature
+    expr: ohm_cpu_celsius{instance="Server-Core.Horna.local:4445", sensor="CPU Package"} > 48
+    for: 30s
+    annotations:
+      title: 'Server-Core High CPU temperature'
+      description: 'Temperature: `{{ $value }}C`'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '15 seconds'
+      type: 'temperature'
+
+  - alert: Ryzen9 High CPU temperature
+    expr: ohm_cpu_celsius{instance="Ryzen9.Horna.local:4445", sensor="CCDs Average (Tdie)"} > 62
+    for: 30s
+    annotations:
+      title: 'Ryzen9 High CPU temperature'
+      description: 'Temperature: `{{ $value }}C`'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '15 seconds'
+      type: 'temperature'
