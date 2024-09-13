@@ -6,7 +6,7 @@ groups:
     for: 30s
     annotations:
       title: 'High Router Temperature'
-      description: 'Temperature: `{{ $value }}C`'
+      description: 'Temperature: `{{ $value }} °C`'
     labels:
       severity: 'warning'
       down_time_trigger: '15 seconds'
@@ -17,7 +17,7 @@ groups:
     for: 30s
     annotations:
       title: 'Server-Core High CPU temperature'
-      description: 'Temperature: `{{ $value }}C`'
+      description: 'Temperature: `{{ $value }} °C`'
     labels:
       severity: 'warning'
       down_time_trigger: '30 seconds'
@@ -28,7 +28,7 @@ groups:
     for: 2m
     annotations:
       title: 'Ryzen9 High CPU temperature'
-      description: 'Temperature: `{{ $value }}C`'
+      description: 'Temperature: `{{ $value }} °C`'
     labels:
       severity: 'warning'
       down_time_trigger: '2 minutes'
