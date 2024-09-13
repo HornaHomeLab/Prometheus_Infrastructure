@@ -28,8 +28,6 @@ scrape_configs:
       - targets: [
           "Apps.Horna.local:8000"
         ]
-        labels:
-          persistent: "true"
   
   - job_name: "Docker_Containers"
     static_configs:
@@ -43,8 +41,5 @@ scrape_configs:
   - job_name: "Omada"
     static_configs:
       - targets: [
-          "Apps.Horna.local:51772",
-          "codespace.Horna.local:51772"
+          "Apps.Horna.local:51772"
         ]
-        labels:
-          persistent: "true"

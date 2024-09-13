@@ -2,7 +2,7 @@ groups:
 - name: Scrape Targets
   rules:
   - alert: Persistent Instance Down
-    expr: up{persistent="true"} == 0
+    expr: up{job=~"Omada|SpeedTest"} == 0
     for: 15s
     annotations:
       title: '{{ $labels.instance }} is down'

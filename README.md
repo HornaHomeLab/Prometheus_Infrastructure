@@ -1,5 +1,5 @@
 # Prometheus
-##### version: 1.0.0
+##### version: 1.0.1
 
 Prometheus collects and stores its metrics as time series data, 
 i.e. metrics information is stored with the timestamp at which it was recorded, 
