@@ -59,7 +59,7 @@ groups:
 
   - alert: High latency during download
     # Condition for alerting
-    expr: download_latency_high > 250
+    expr: download_latency_high > 300
     for: 15s
     # Annotation - additional informational labels to store more information
     annotations:
