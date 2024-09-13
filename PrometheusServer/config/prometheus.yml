@@ -14,6 +14,7 @@ rule_files:
     - "alert_scrape_targets.yml"
     - "alert_internet_connection.yml"
     - "alert_resource_consumption.yml"
+    - "alert_temperatures.yml"
 
 scrape_configs:
 
