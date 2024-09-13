@@ -1,0 +1,90 @@
+groups:
+- name: Internet Connection
+  rules:
+  - alert: Low internet download speed
+    expr: download_bandwidth/1000000 < 900
+    for: 15s
+    annotations:
+      title: 'Low Download speed'
+      description: 'Download speed: `{{ $value }}` Mbps'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '15 seconds'
+      type: 'internet'
+
+  - alert: Low internet upload speed
+    expr: upload_bandwidth/1000000 < 90
+    for: 15s
+    annotations:
+      title: 'Low Upload speed'
+      description: 'Upload speed: `{{ $value }}` Mbps'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '15 seconds'
+      type: 'internet'
+
+  - alert: High Ping without workload
+    expr: ping_no_workload_latency > 5
+    for: 15s
+    annotations:
+      title: 'Ping without workload'
+      description: 'Value of ping_no_workload_latency is `{{ $value }}` ms'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '15 seconds'
+      type: 'internet'
+
+  - alert: High latency during upload
+    expr: upload_latency_high > 500
+    for: 15s
+    annotations:
+      title: 'High Upload latency'
+      description: 'High Upload latency is `{{ $value }}` ms'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '15 seconds'
+      type: 'internet'
+
+  - alert: High latency during download
+    expr: download_latency_high > 300
+    for: 15s
+    annotations:
+      title: 'High Download latency'
+      description: 'High Download latency is `{{ $value }}` ms'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '15 seconds'
+      type: 'internet'
+
+  - alert: No internet access
+    expr: download_bandwidth/1000000 < 1 or upload_bandwidth/1000000 < 1
+    for: 15s
+    annotations:
+      title: 'No internet access'
+      description: 'Value of bandwidth is `{{ $value }}` Mbps'
+    labels:
+      severity: 'critical'
+      down_time_trigger: '15 seconds'
+      type: 'internet'
+
+  - alert: Packet loss
+    expr: packet_loss * 100 > 1
+    for: 15s
+    annotations:
+      title: 'Speed test packet loss'
+      description: 'Value of packet_loss is `{{ $value }}` %'
+    labels:
+      severity: 'critical'
+      down_time_trigger: '15 seconds'
+      type: 'internet'
+
+  - alert: Router port internet state Offline
+    expr: router_port_info{mode="WAN",internetState="Offline"} == 1
+    for: 15s
+    annotations:
+      title: 'Router port internet state Offline'
+      description: 'Value of internetState change to offline for {{ $labels.portDesc }} %'
+    labels:
+      severity: 'critical'
+      down_time_trigger: '15 seconds'
+      type: 'internet'

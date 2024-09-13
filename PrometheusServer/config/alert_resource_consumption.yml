@@ -1,0 +1,114 @@
+groups:
+- name: Resource Consumption Network Gear
+  rules:
+  - alert: High CPU Usage > 70%
+    expr: cpu_usage > 70 and cpu_usage <= 90
+    for: 15s
+    annotations:
+      title: 'High CPU usage > 70%'
+      description: '{{ $labels.deviceType }} named:  `{{ $labels.name }}` has `{{ $value }}%` CPU usage'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '15 seconds'
+      type: 'Network Gear'
+
+  - alert: High CPU Usage > 90%
+    expr: cpu_usage > 90
+    for: 15s
+    annotations:
+      title: 'High CPU usage > 90%'
+      description: '{{ $labels.deviceType }} named:  `{{ $labels.name }}` has `{{ $value }}%` CPU usage'
+    labels:
+      severity: 'critical'
+      down_time_trigger: '15 seconds'
+      type: 'Network Gear'
+
+  - alert: High Memory Usage > 70%
+    expr: memory_usage > 70 and memory_usage <= 90
+    for: 15s
+    annotations:
+      title: 'High Memory usage > 70%'
+      description: '{{ $labels.deviceType }} named:  `{{ $labels.name }}` has `{{ $value }}%` memory in use'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '15 seconds'
+      type: 'Network Gear'
+
+  - alert: High Memory Usage > 90%
+    expr: memory_usage > 90
+    for: 15s
+    annotations:
+      title: 'High Memory usage > 90%'
+      description: '{{ $labels.deviceType }} named:  `{{ $labels.name }}` has `{{ $value }}%` memory in use'
+    labels:
+      severity: 'critical'
+      down_time_trigger: '15 seconds'
+      type: 'Network Gear'
+
+- name: Resource Consumption Computers
+  rules:
+  - alert: High CPU Usage > 60%
+    expr: ohm_cpu_load_percent{sensor="CPU Total"} > 60 and ohm_cpu_load_percent{sensor="CPU Total"} <= 80
+    for: 30s
+    annotations:
+      title: 'High CPU usage > 60%'
+      description: 'Computer `{{ $labels.instance }}` has `{{ $value }}%` CPU usage'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '30 seconds'
+      type: 'Computers'
+
+  - alert: High CPU Usage > 80%
+    expr: ohm_cpu_load_percent{sensor="CPU Total"} > 80
+    for: 30s
+    annotations:
+      title: 'High CPU usage > 80%'
+      description: 'Computer `{{ $labels.instance }}` has `{{ $value }}%` CPU usage'
+    labels:
+      severity: 'critical'
+      down_time_trigger: '30 seconds'
+      type: 'Computers'
+
+  - alert: High Memory Usage > 75%
+    expr: ohm_ram_load_percent{sensor="Memory"} > 75 and ohm_ram_load_percent{sensor="Memory"} <= 85
+    for: 30s
+    annotations:
+      title: 'High Memory usage > 75%'
+      description: 'Computer `{{ $labels.instance }}` has `{{ $value }}%` memory in use'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '30 seconds'
+      type: 'Computers'
+
+  - alert: High Memory Usage > 85%
+    expr: ohm_ram_load_percent{sensor="Memory"} > 85
+    for: 30s
+    annotations:
+      title: 'High Memory usage > 85%'
+      description: 'Computer `{{ $labels.instance }}` has `{{ $value }}%` memory in use'
+    labels:
+      severity: 'critical'
+      down_time_trigger: '30 seconds'
+      type: 'Computers'
+
+  - alert: High Disk activity > 65%
+    expr: ohm_hdd_load_percent{sensor="Total Activity"} > 65 and ohm_hdd_load_percent{sensor="Total Activity"} <= 75
+    for: 30s
+    annotations:
+      title: 'High Disk activity > 65%'
+      description: 'Computer `{{ $labels.instance }}` has `{{ $value }}%` disk activity on `{{ $labels.hardware }}`'
+    labels:
+      severity: 'warning'
+      down_time_trigger: '30 seconds'
+      type: 'Computers'
+
+  - alert: High Disk activity > 75%
+    expr: ohm_hdd_load_percent{sensor="Total Activity"} > 75
+    for: 30s
+    annotations:
+      title: 'High Disk activity > 75%'
+      description: 'Computer `{{ $labels.instance }}` has `{{ $value }}%` disk activity on `{{ $labels.hardware }}`'
+    labels:
+      severity: 'critical'
+      down_time_trigger: '30 seconds'
+      type: 'Computers'
