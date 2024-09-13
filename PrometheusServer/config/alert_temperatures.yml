@@ -20,16 +20,16 @@ groups:
       description: 'Temperature: `{{ $value }}C`'
     labels:
       severity: 'warning'
-      down_time_trigger: '15 seconds'
+      down_time_trigger: '30 seconds'
       type: 'temperature'
 
   - alert: Ryzen9 High CPU temperature
     expr: ohm_cpu_celsius{instance="Ryzen9.Horna.local:4445", sensor="CCDs Average (Tdie)"} > 62
-    for: 30s
+    for: 2m
     annotations:
       title: 'Ryzen9 High CPU temperature'
       description: 'Temperature: `{{ $value }}C`'
     labels:
       severity: 'warning'
-      down_time_trigger: '15 seconds'
+      down_time_trigger: '2 minutes'
       type: 'temperature'
