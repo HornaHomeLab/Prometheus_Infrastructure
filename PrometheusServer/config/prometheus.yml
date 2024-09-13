@@ -1,8 +1,7 @@
-# my global config
 global:
-  scrape_interval: 15s # Set the scrape interval to every 15 seconds. Default is every 1 minute.
-  evaluation_interval: 15s # Evaluate rules every 15 seconds. The default is every 1 minute.
-  # scrape_timeout is set to the global default (10s).
+  scrape_interval: 15s 
+  evaluation_interval: 15s 
+
 
 # Alertmanager configuration
 alerting:
@@ -11,20 +10,14 @@ alerting:
         - targets:
           - AlertManager_Infrastructure:9093
 
-# Load rules once and periodically evaluate them according to the global 'evaluation_interval'.
 rule_files:
     - "alert_scrape_targets.yml"
     - "alert_internet_connection.yml"
     - "alert_resource_consumption.yml"
 
-# A scrape configuration containing exactly one endpoint to scrape:
-# Here it's Prometheus itself.
 scrape_configs:
-  # The job name is added as a label `job=<job_name>` to any timeseries scraped from this config.
 
   - job_name: "Server_Load"
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
     static_configs:
       - targets: [
           "Ryzen9.Horna.local:4445",
@@ -32,8 +25,6 @@ scrape_configs:
         ]
 
   - job_name: "SpeedTest"
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
     static_configs:
       - targets: [
           "Apps.Horna.local:8000"
@@ -42,8 +33,6 @@ scrape_configs:
           persistent: "true"
   
   - job_name: "Docker_Containers"
-    # metrics_path defaults to '/metrics'
-    # scheme defaults to 'http'.
     static_configs:
       - targets: [
           "services.Horna.local:54569", 
