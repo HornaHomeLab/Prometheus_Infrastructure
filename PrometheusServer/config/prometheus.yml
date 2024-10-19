@@ -47,5 +47,5 @@ scrape_configs:
   - job_name: "GreenCell"
     static_configs:
       - targets: [
-          "apps.Horna.local:58969"
+          "apps.Horna.local:58968"
         ]
